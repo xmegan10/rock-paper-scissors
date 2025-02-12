@@ -10,27 +10,43 @@ function getComputerChoice(){
     else{
         computerChoice = "scissors";
     }
-    console.log(computerChoice);
+    document.getElementById("computer-choice").innerText = "Computer plays: " + computerChoice;
+    return computerChoice;
+
 }
 
 function getHumanChoice(){
     const choiceButton = document.getElementById("choice-button");
+    let input = document.getElementById("human-choice").value.toLowerCase();
+    let humanChoice;
 
     choiceButton.addEventListener('click', function(){
-        let input = document.getElementById("human-choice").value.toLowerCase();
         if(input === "rock" || input === "paper" || input === "scissors"){
             document.getElementById('choice').innerHTML=`You played ${input}`;
+            humanChoice = input;
+            getComputerChoice();
+            playRound();
+            return humanChoice;
         }
         else{
             document.getElementById('choice').innerHTML='Invalid'
             input = "";
         }
     });
+    
+
 }
 
 function playRound(humanChoice, computerChoice){
-    //player plays rock
-        //if computer plays rock, tie
+    let humanScore = 0;
+    let computerScore = 0;
+    if(humanChoice === "rock" && computerChoice == "rock"){
+        document.getElementById("play-round").innerText="Tied"
+    }
+    if(humanChoice === "rock" && computerChoice == "paper"){
+        computerScore += 1;
+        document.getElementById("play-round").innerText=`Computer wins! Computer score is now ${computerScore}`
+    }
         //if computer plays paper, computer wins
             //computer score increases by 1
         //if computer plays scissors, player wins
@@ -48,6 +64,7 @@ function playRound(humanChoice, computerChoice){
             //player score increases by 1
         //if computer plays scissors, tie
 }
+
 
 function playGame(){
     //if round is not greater than 5
